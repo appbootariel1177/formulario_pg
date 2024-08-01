@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RAMA REMOLQUES MECANICOS "PERMISOS GREMIALES"</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #ececec;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      max-width: 600px;
+      width: 100%;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #555;
+    }
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    .form-group input[type="submit"], .form-group .print-button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      padding: 12px 20px;
+      border-radius: 5px;
+      text-align: center;
+      display: inline-block;
+      margin-right: 10px;
+      transition: background-color 0.3s ease;
+    }
+    .form-group .print-button {
+      background-color: #f44336;
+      text-decoration: none;
+    }
+    .form-group input[type="submit"]:hover, .form-group .print-button:hover {
+      background-color: #45a049;
+    }
+    .form-group .print-button:hover {
+      background-color: #d32f2f;
+    }
+    .form-group input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>RAMA REMOLQUES MECANICOS "PERMISOS GREMIALES"</h2>
+    <form id="solicitudForm">
+      <div class="form-group">
+        <label for="nombreApellido">Nombre y Apellido:</label>
+        <input type="text" id="nombreApellido" name="nombreApellido" placeholder="Aca ponemos el nombre del compañero" required>
+      </div>
+      <div class="form-group">
+        <label for="fechaPermiso">Fecha de Permiso:</label>
+        <input type="date" id="fechaPermiso" name="fechaPermiso" placeholder="Aca la fecha del permiso" required>
+      </div>
+      <div class="form-group">
+        <label for="empresa">Empresa:</label>
+        <select id="empresa" name="empresa" required>
+          <option value="">Seleccione una empresa</option>
+          <option value="AESA">AESA</option>
+          <option value="ASHIRA MYM CABA">ASHIRA MYM CABA</option>
+          <option value="CHAMICAL">CHAMICAL</option>
+          <option value="CLIBA CABA">CLIBA CABA</option>
+          <option value="CLIBA SAN ISIDRO">CLIBA SAN ISIDRO</option>
+          <option value="CONT.HUGO">CONT.HUGO</option>
+          <option value="COOP GEST LDTA MORENO">COOP GEST LDTA MORENO</option>
+          <option value="COOP.GEST.LTDA CABA">COOP.GEST.LTDA CABA</option>
+          <option value="COVELIA Lanus">COVELIA Lanus</option>
+          <option value="COVELIA Lomas">COVELIA Lomas</option>
+          <option value="COVELIA San Martin">COVELIA San Martin</option>
+          <option value="DAKOTA">DAKOTA</option>
+          <option value="DELTACOM">DELTACOM</option>
+          <option value="DORINKA">DORINKA</option>
+          <option value="ECOCIUDAD">ECOCIUDAD</option>
+          <option value="FARMACITY">FARMACITY</option>
+          <option value="HESURMET">HESURMET</option>
+          <option value="LOGISU">LOGISU</option>
+          <option value="LUSA">LUSA</option>
+          <option value="MACROSER">MACROSER</option>
+          <option value="MARTIN Y MARTIN SAN JUSTO">MARTIN Y MARTIN SAN JUSTO</option>
+          <option value="NITTIDA">NITTIDA</option>
+          <option value="OCA LOG">OCA LOG</option>
+          <option value="OLIVOS TIGRE">OLIVOS TIGRE</option>
+          <option value="REMOLQUES Y SERVICIOS">REMOLQUES Y SERVICIOS</option>
+          <option value="RINKEL TRAIL">RINKEL TRAIL</option>
+          <option value="SANTA ELENA">SANTA ELENA</option>
+          <option value="SBASE">SBASE</option>
+          <option value="SERBECO">SERBECO</option>
+          <option value="SERTEC">SERTEC</option>
+          <option value="SERVICIO LUCIO">SERVICIO LUCIO</option>
+          <option value="SOLBAYRES">SOLBAYRES</option>
+          <option value="SUPLYCHAY LOGISTICA">SUPLYCHAY LOGISTICA</option>
+          <option value="TTE OLIVOS MARTELLI">TTE OLIVOS MARTELLI</option>
+          <option value="Urbaser Moron">Urbaser Moron</option>
+          <option value="URBASUR">URBASUR</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <input type="submit" value="Enviar datos">
+        <a href="https://appbootariel1177.github.io/permisosweb/" class="print-button">Ir a la base de datos para imprimir</a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('solicitudForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const formData = new FormData(e.target);
+      const fechaPermiso = new Date(formData.get('fechaPermiso'));
+      fechaPermiso.setMinutes(fechaPermiso.getMinutes() + fechaPermiso.getTimezoneOffset());
+
+      const data = {
+        nombreApellido: formData.get('nombreApellido'),
+        fechaPermiso: fechaPermiso.toISOString(), // Formato ISO 8601
+        empresa: formData.get('empresa')
+      };
+
+      google.script.run.saveFormData(data);
+      alert('Formulario enviado exitosamente.');
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>
